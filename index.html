@@ -54,6 +54,183 @@
   </style>
 </head>
 <body>
+  <!-- JACK MODE v3 START -->
+  <style>
+    #jackModeBtn{
+      position:fixed; top:16px; right:18px; z-index:9999;
+      padding:16px 24px; font-size:20px; font-weight:700;
+      border:none; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35);
+      background:linear-gradient(135deg, var(--brand-2, #ffd36b), #ff9f1a);
+      color:#0b1220; cursor:pointer; letter-spacing:.3px;
+    }
+    #jackModeBtn:active{ transform:translateY(1px); }
+    body.has-jack-mode-btn { scroll-padding-top: 72px; }
+  </style>
+
+  <button id="jackModeBtn" type="button" aria-pressed="false">Jack Mode</button>
+
+  <script>
+    // --- Jack Mode v3: includes food/menu phrase translation ---
+    (function(){
+      const mapExact = new Map([
+        ['🟦 Boys Trip','🟦 ボーイズトリップ'],
+        ['Lookup','検索'],
+        ['Meal Shifts','食事当番'],
+        ['Room Assignments','部屋割り'],
+        ['Find your details','あなたの情報を探す'],
+        ['View','表示'],
+        ['Legend:','凡例：'],
+        ['Locations:','場所：'],
+        ['Name','名前'],
+        ['Assignment','割り当て'],
+        ['Location','場所'],
+        ['Meal','食事'],
+        ['Menu','メニュー'],
+        ['People','担当者'],
+        ["You're not on a meal shift—enjoy!","食事当番はありません。お楽しみください！"],
+        ['No match for','一致なし'],
+        ['Try picking a name from the list above.','上のリストから名前を選んでください。'],
+        ['Room:','部屋:'],
+        ['Your meal shift','あなたの食事当番'],
+        ['Your meal shifts','あなたの食事当番'],
+        ['Menu:','メニュー:'],
+        ['Nonrefundable deposits are due by 12/31/2025.','払い戻し不可のデポジット期限は 2025/12/31 です。']
+      ]);
+
+      // High-priority phrase translations (longest-first)
+      const phrasePairs = [
+        ['Grilled Chicken Souvlaki with Pita and Tzatziki', 'グリルチキンのスブラキ（ピタ＆ザジキ添え）'],
+        ["Kevin's Famous Ice Cream Sundaes", 'ケビン名物アイスクリームサンデー'],
+        ['Eggs Benedict', 'エッグベネディクト'],
+        ['French Toast Bake', 'フレンチトースト焼き'],
+        ['Country Potatoes', 'カントリーポテト'],
+        ['Fresh Fruit', 'フレッシュフルーツ'],
+        ['Coffee', 'コーヒー'],
+        ['Juice/Smoothie', 'ジュース／スムージー'],
+        ["Jordy's Famous Sandwiches", 'ジョーディの名物サンドイッチ'],
+        ["Chef Will's Famous Braised Short Ribs", 'シェフ・ウィルの名物ショートリブの煮込み'],
+        ['Braised Short Ribs', 'ショートリブの煮込み'],
+        ['Short Ribs', 'ショートリブ'],
+        ['Sandwiches', 'サンドイッチ'],
+        ['Ice Cream', 'アイスクリーム']
+      ];
+
+      // Sort by length so longer phrases replace first
+      phrasePairs.sort((a,b)=>b[0].length - a[0].length);
+
+      // Additional word-level replacements to catch leftovers
+      const wordPairs = [
+        ['Grilled','グリル'],['Chicken','チキン'],['Souvlaki','スブラキ'],
+        ['with','、'],['Pita','ピタ'],['and','＆'],['Tzatziki','ザジキ'],
+        ['Famous','名物'],['Chef','シェフ'],['Breakfast','朝食']
+      ];
+
+      // Generic regex replacements
+      const regexReplacements = [
+        [/Palm Desert, California • June 18–21/g, 'カリフォルニア州パームデザート • 6月18日〜21日'],
+        [/\bThursday\b/gi, '木曜'],[/\bFriday\b/gi, '金曜'],[/\bSaturday\b/gi, '土曜'],
+        [/\bBreakfast\b/gi, '朝食'],[/\bLunch\b/gi, '昼食'],[/\bDinner\b/gi, '夕食'],[/\bCatered\b/gi, 'ケータリング'],
+        [/\bMenu\b/gi, 'メニュー'],
+        [/Bedroom\s*(\d+)/gi, '寝室 $1'],[/King bed/gi, 'キングベッド'],[/Queen bed\s*(\d*)/gi, 'クイーンベッド $1'],[/Bunk bed\s*(\d*)/gi, '二段ベッド $1'],
+        [/Main House/gi, '本館'],[/Casita\s*1/gi, 'カシータ1'],[/Casita\s*2/gi, 'カシータ2'],[/Casita\s*3/gi, 'カシータ3'],
+        [/\bKing\b/gi, 'キング'],[/\bQueen\b/gi, 'クイーン'],[/\bBunk\b/gi, '二段ベッド']
+      ];
+
+      const ATTRS = ['aria-label','title','placeholder','alt','data-title','data-label'];
+
+      const originalNodes = new WeakMap();
+      const originalAttrs = new WeakMap();
+
+      function applyPhrases(text){
+        let out = text;
+        phrasePairs.forEach(([en, ja])=>{
+          const re = new RegExp(en.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
+          out = out.replace(re, ja);
+        });
+        wordPairs.forEach(([en, ja])=>{
+          const re = new RegExp('\\b' + en.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '\\b', 'g');
+          out = out.replace(re, ja);
+        });
+        return out;
+      }
+
+      function translateString(s){
+        if(!s) return s;
+        const trimmed = s.trim();
+        if(mapExact.has(trimmed)){
+          return s.replace(trimmed, mapExact.get(trimmed));
+        }
+        let out = s;
+        // menu/food phrases first
+        out = applyPhrases(out);
+        // then generic regexes
+        regexReplacements.forEach(([re, rep])=>{ out = out.replace(re, rep); });
+        return out;
+      }
+
+      function translateAttributes(root, toJA){
+        const all = root.querySelectorAll('*');
+        all.forEach(el=>{
+          ATTRS.forEach(attr=>{
+            if(!el.hasAttribute(attr)) return;
+            const cur = el.getAttribute(attr);
+            if(cur == null || cur === '') return;
+            if(toJA){
+              if(!originalAttrs.has(el)) originalAttrs.set(el, {});
+              const rec = originalAttrs.get(el);
+              if(rec[attr] == null) rec[attr] = cur;
+              const next = translateString(cur);
+              if(next !== cur) el.setAttribute(attr, next);
+            }else{
+              const rec = originalAttrs.get(el);
+              if(rec && rec[attr] != null) el.setAttribute(attr, rec[attr]);
+            }
+          });
+        });
+      }
+
+      function walkAndTranslate(root, toJA){
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node){
+            if(!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+            if(node.parentElement && ['SCRIPT','STYLE','NOSCRIPT'].includes(node.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+        const textNodes = [];
+        while(walker.nextNode()) textNodes.push(walker.currentNode);
+        textNodes.forEach(node=>{
+          if(toJA){
+            if(!originalNodes.has(node)) originalNodes.set(node, node.nodeValue);
+            node.nodeValue = translateString(node.nodeValue);
+          }else if(originalNodes.has(node)){
+            node.nodeValue = originalNodes.get(node);
+          }
+        });
+        translateAttributes(root, toJA);
+      }
+
+      let jackOn = false;
+      document.body.classList.add('has-jack-mode-btn');
+      const btn = document.getElementById('jackModeBtn');
+      btn.addEventListener('click', ()=>{
+        jackOn = !jackOn;
+        btn.setAttribute('aria-pressed', String(jackOn));
+        walkAndTranslate(document.body, jackOn);
+        btn.textContent = jackOn ? 'Jack Mode (日本語)' : 'Jack Mode';
+      });
+
+      const observer = new MutationObserver((muts)=>{
+        if(!jackOn) return;
+        muts.forEach(m=>{
+          m.addedNodes && m.addedNodes.forEach(n=>{ if(n.nodeType===1) walkAndTranslate(n, true); });
+        });
+      });
+      observer.observe(document.body, { childList:true, subtree:true, characterData:true });
+    })();
+  </script>
+  <!-- JACK MODE v3 END -->
+
   <header class="hero" aria-label="Trip overview">
     <h1>🟦 Boys Trip</h1>
     <p>Palm Desert, California • June 18–21</p>
