@@ -3,29 +3,253 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Boys Trip 2026 – Palm Desert</title>
+  <title>Boys Trip — Palm Desert (June 18–21)</title>
+  <meta name="description" content="One‑page info hub for Boys Trip in Palm Desert, CA (June 18–21). Quick lookup for room and meal assignments." />
   <style>
-    :root { color-scheme: dark; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      background: #000;
-      color: #fff;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    :root{
+      --bg:#0b1220;
+      --card:#121a2a;
+      --muted:#a9b3c7;
+      --brand:#7bdcff;
+      --brand-2:#ffd36b;
+      --ok:#7cffbe;
+      --radius:16px;
     }
-    main { text-align: center; padding: 2rem; }
-    h1 { font-size: clamp(2rem, 8vw, 3rem); margin: 0 0 .5rem; }
-    p { font-size: clamp(1rem, 4.5vw, 1.5rem); margin: .25rem 0; }
+    html,body{margin:0;height:100%;}
+    body{font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;line-height:1.45;color:#eef3ff;background:radial-gradient(1200px 600px at 10% -10%, #13203a 0%, var(--bg) 55%);} /* no busy bg image */
+
+    /* Hero (keep property aerial) */
+    header.hero{position:relative;text-align:center;color:white;padding:140px 20px;background:url('Screenshot 2025-10-06 132318.png') center/cover no-repeat;}
+    header.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.45));}
+    header.hero>*{position:relative;z-index:1}
+    header.hero h1{margin:0;font-size:clamp(36px,7vw,64px)}
+    header.hero p{margin:10px 0 0;color:#e0e8f5;font-size:18px}
+
+    nav.top{position:sticky;top:0;backdrop-filter:blur(8px);background:rgba(8,14,26,.7);border-bottom:1px solid #1f2a44;z-index:10}
+    nav.top ul{display:flex;overflow:auto;list-style:none;margin:0;padding:8px;gap:8px;justify-content:center}
+    nav.top a{color:#dfe7fb;text-decoration:none;padding:10px 12px;border-radius:10px;border:1px solid #203053;font-size:14px}
+    nav.top a:hover,nav.top a:focus{border-color:#355aa4}
+
+    main{padding:18px;display:grid;gap:22px;max-width:1100px;margin:0 auto}
+    .card{background:linear-gradient(180deg,#121a2a,#0f1726);border:1px solid #22304d;border-radius:var(--radius);padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+
+    /* Lookup styles */
+    .lookup{display:grid;gap:12px}
+    .lookup .row{display:grid;grid-template-columns:1fr;gap:10px}
+    .select{display:flex;gap:10px}
+    .select input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #2a3a61;background:#0b1426;color:#eaf1ff}
+    .select button{padding:12px 14px;border-radius:12px;border:1px solid #2a3a61;background:linear-gradient(160deg,#173057,#0b1426);color:#eaf1ff}
+    .result{display:grid;gap:10px}
+    .assign{display:grid;gap:6px;padding:12px;border-radius:14px;border:1px dashed #2a3a61;background:#0b1426}
+    .assign strong{color:var(--brand)}
+    .pill{display:inline-block;padding:.25rem .55rem;border:1px solid #30507e;border-radius:999px;font-size:13px;color:#cfe6ff}
+    .small{font-size:12px;color:#9fb0cf}
+
+    /* Tables */
+    .tbl{width:100%;border-collapse:collapse;font-size:14px}
+    .tbl th,.tbl td{padding:10px;border-bottom:1px solid #253457;text-align:left}
+    .tbl th{cursor:pointer;background:#111b2e}
+
+    footer{padding:40px 18px;text-align:center;color:#9fb0cf}
   </style>
 </head>
 <body>
-  <main role="main" aria-label="Boys Trip 2026 placeholder">
-    <h1>Boys Trip 2026 🤪</h1>
-    <p>June 18-21</p>
-    <p>Palm Desert, CA</p>
+  <header class="hero" aria-label="Trip overview">
+    <h1>🟦 Boys Trip</h1>
+    <p>Palm Desert, California • June 18–21</p>
+  </header>
+
+  <nav class="top" aria-label="Section navigation">
+    <ul>
+      <li><a href="#lookup">Lookup</a></li>
+      <li><a href="#meals">Meal Shifts</a></li>
+      <li><a href="#rooms">Room Assignments</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Lookup Card -->
+    <section id="lookup" class="card lookup" aria-labelledby="lookup-title">
+      <h2 id="lookup-title">Find your details</h2>
+      <div class="row">
+        <label class="select" for="nameInput" aria-label="Search by name">
+          <input id="nameInput" list="nameList" placeholder="Start typing your name… (e.g., TBD, TBD, TBD)" />
+          <datalist id="nameList"></datalist>
+          <button id="viewBtn" type="button">View</button>
+        </label>
+      </div>
+      <div id="result" class="result" aria-live="polite"></div>
+      <p class="small">When populated, you can share a direct link like <code>?name=First%20Last</code>. The page will pre‑fill.</p>
+    </section>
+
+    <!-- Meals -->
+    <section id="meals" class="card">
+      <h2>🍽️ Meal Shifts</h2>
+      <table class="tbl" id="mealsTable"></table>
+    </section>
+
+    <!-- Rooms -->
+    <section id="rooms" class="card">
+      <h2>🛏️ Room & Bed Assignments</h2>
+      <table class="tbl" id="roomsTable"></table>
+      <p class="small">Legend: <span class="pill">KG = King</span> <span class="pill">QN = Queen</span> <span class="pill">BU = Bunk</span> • Locations: <span class="pill">MH = Main House</span> <span class="pill">C1 = Casita 1</span> <span class="pill">C2 = Casita 2</span> <span class="pill">C3 = Casita 3</span></p>
+    </section>
   </main>
+
+  <footer>
+    <div>Nonrefundable deposits are due by 12/31/2025.</div>
+  </footer>
+
+  <script>
+    // ------------------ DATA ------------------
+    const meals = [
+      { when: 'Thursday Dinner (~8:00pm)', menu: 'Grilled Chicken Souvlaki with Pita and Tzatziki; Kevin\'s Famous Ice Cream Sundaes', people: ['TBD', 'TBD', 'TBD', 'TBD', 'TBD'] },
+      { when: 'Friday Breakfast (9:00am)', menu: 'Eggs Benedict; French Toast Bake; Country Potatoes; Fresh Fruit; Coffee; Juice/Smoothie', people: ['TBD', 'TBD', 'TBD'] },
+      { when: 'Friday Lunch (2:00pm)', menu: "Jordy's Famous Sandwiches", people: ['TBD', 'TBD'] },
+      { when: 'Friday Dinner (8:00pm)', menu: "Chef Will's Famous Braised Short Ribs", people: ['TBD', 'TBD', 'TBD', 'TBD', 'TBD'] },
+      { when: 'Saturday Breakfast (9:00am)', menu: 'B&G Breakfast', people: ['TBD', 'TBD', 'TBD'] },
+      { when: 'Saturday Lunch (2:00pm)', menu: '', people: ['TBD', 'TBD'] },
+      { when: 'Saturday Dinner (Catered 8:00pm)', menu: '', people: ['TBD', 'TBD'] }
+    ];
+
+    const rooms = [
+      { boy:1,  code:'BD1 KG1 MH', name:'TBD' },
+      { boy:2,  code:'BD2 KG1 MH', name:'TBD' },
+      { boy:3,  code:'BD2 KG2 MH', name:'TBD' },
+      { boy:4,  code:'BD3 KG1 MH', name:'TBD' },
+      { boy:5,  code:'BD3 KG2 MH', name:'TBD' },
+      { boy:6,  code:'BD4 KG1 MH', name:'TBD' },
+      { boy:7,  code:'BD4 KG2 MH', name:'TBD' },
+      { boy:8,  code:'BD5 KG1 C1', name:'TBD' },
+      { boy:9,  code:'BD5 BU1 C1', name:'TBD' },
+      { boy:10, code:'BD5 BU2 C1', name:'TBD' },
+      { boy:11, code:'BD6 QN1 C1', name:'TBD' },
+      { boy:12, code:'BD6 QN2 C1', name:'TBD' },
+      { boy:13, code:'BD6 BU1 C1', name:'TBD' },
+      { boy:14, code:'BD6 BU3 C1', name:'TBD' },
+      { boy:15, code:'BD6 BU4 C1', name:'TBD' },
+      { boy:16, code:'BD7 QN1 C2', name:'TBD' },
+      { boy:17, code:'BD7 QN2 C2', name:'TBD' },
+      { boy:18, code:'BD7 BU1 C2', name:'TBD' },
+      { boy:19, code:'BD7 BU2 C2', name:'TBD' },
+      { boy:20, code:'BD8 KG1 C2', name:'TBD' },
+      { boy:21, code:'BD8 QN1 C2', name:'TBD' },
+      { boy:22, code:'BD8 QN2 C2', name:'TBD' }
+      // Note: BD9 QN1 C3* (Boy 23) not listed in provided names
+    ];
+
+    // -------------- HELPERS --------------
+    function codeToPretty(code){
+      const [bd, bedType, loc] = code.split(' ');
+      const bdNum = bd.replace('BD','');
+      const locMap = { MH:'Main House', C1:'Casita 1', C2:'Casita 2', C3:'Casita 3' };
+      const type = bedType.slice(0,2); // KG, QN, BU
+      let bedPretty = '';
+      if(type==='KG') bedPretty = 'King bed';
+      else if(type==='QN') bedPretty = 'Queen bed ' + bedType.replace('QN','');
+      else if(type==='BU') bedPretty = 'Bunk bed ' + bedType.replace('BU','');
+      else bedPretty = bedType;
+      return { bedroom:`Bedroom ${bdNum}`, bed:bedPretty.trim(), location:locMap[loc]||loc };
+    }
+
+    const byName = Object.fromEntries(rooms.map(r => [r.name, r]));
+
+    // Populate datalist
+    const nameList = document.getElementById('nameList');
+    rooms.map(r=>r.name).sort((a,b)=>a.localeCompare(b)).forEach(n=>{
+      const o=document.createElement('option'); o.value=n; nameList.appendChild(o);
+    });
+
+    // Build tables
+    function renderMeals(){
+      const tbl = document.getElementById('mealsTable');
+      tbl.innerHTML = `<thead><tr><th>Meal</th><th>Menu</th><th>People</th></tr></thead>`;
+      const tb = document.createElement('tbody');
+      meals.forEach(m=>{
+        const tr=document.createElement('tr');
+        tr.innerHTML=`<td>${m.when}</td><td>${m.menu||''}</td><td>${m.people.join(', ')}</td>`;
+        tb.appendChild(tr);
+      });
+      tbl.appendChild(tb);
+    }
+
+    function renderRooms(){
+      const tbl = document.getElementById('roomsTable');
+      tbl.innerHTML = `<thead><tr><th>Name</th><th>Assignment</th><th>Location</th></tr></thead>`;
+      const tb = document.createElement('tbody');
+      rooms.forEach(r=>{
+        const info=codeToPretty(r.code);
+        const tr=document.createElement('tr');
+        tr.innerHTML=`<td>${r.name}</td><td>${info.bedroom} — ${info.bed}</td><td>${info.location}</td>`;
+        tb.appendChild(tr);
+      });
+      tbl.appendChild(tb);
+      makeSortable(tbl);
+    }
+
+    function getMealsFor(name){
+      const res = [];
+      meals.forEach(m=>{ if(m.people.includes(name)) res.push({when:m.when, menu:m.menu}); });
+      return res;
+    }
+
+    function showResult(name){
+      const wrap = document.getElementById('result');
+      wrap.innerHTML='';
+      const rec = byName[name];
+      if(!rec){
+        wrap.innerHTML = `<div class="assign">No match for <strong>${name||'…'}</strong>. Try picking a name from the list above.</div>`;
+        return;
+      }
+      const info = codeToPretty(rec.code);
+      const ms = getMealsFor(name);
+      const div = document.createElement('div');
+      div.className='assign';
+      div.innerHTML = `
+        <div><strong>${name}</strong></div>
+        <div>Room: <span class="pill">${info.location}</span> • <span class="pill">${info.bedroom}</span> • <span class="pill">${info.bed}</span></div>
+        <div>${ms.length? 'Your meal shift'+(ms.length>1?'s':'')+':':''}</div>
+        ${ms.map(m=>`<div>• <span class=\"pill\">${m.when}</span> ${m.menu?`<span class=\"small\" style=\"display:block;margin-top:2px\">Menu: ${m.menu}</span>`:''}</div>`).join('') || '<div class="small">You\'re not on a meal shift—enjoy!</div>'}
+      `;
+      wrap.appendChild(div);
+    }
+
+    function makeSortable(table){
+      const headers=table.querySelectorAll('th');
+      headers.forEach((th,i)=>{
+        th.addEventListener('click',()=>{
+          const rows=Array.from(table.querySelectorAll('tbody tr'));
+          const asc=!th.asc;
+          rows.sort((a,b)=>a.children[i].textContent.localeCompare(b.children[i].textContent)*(asc?1:-1));
+          const tb=table.querySelector('tbody');
+          tb.innerHTML='';
+          rows.forEach(r=>tb.appendChild(r));
+          headers.forEach(h=>delete h.asc);
+          th.asc=asc;
+        });
+      });
+    }
+
+    // Hook up UI
+    document.getElementById('viewBtn').addEventListener('click', ()=>{
+      const name = document.getElementById('nameInput').value.trim();
+      showResult(name);
+      if(name) history.replaceState({}, '', `?name=${encodeURIComponent(name)}`);
+    });
+    document.getElementById('nameInput').addEventListener('keydown', (e)=>{
+      if(e.key==='Enter') document.getElementById('viewBtn').click();
+    });
+
+    // Pre-fill by query param
+    const params = new URLSearchParams(location.search);
+    const preset = params.get('name');
+    if(preset){
+      document.getElementById('nameInput').value = preset;
+      showResult(preset);
+    }
+
+    renderMeals();
+    renderRooms();
+  </script>
 </body>
 </html>
