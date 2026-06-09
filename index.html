@@ -7,53 +7,168 @@
   <meta name="description" content="One‑page info hub for Boys Trip in Palm Desert, CA (June 18–21). Quick lookup for room and meal assignments." />
   <style>
     :root{
-      --bg:#0b1220;
-      --card:#121a2a;
-      --muted:#a9b3c7;
-      --brand:#7bdcff;
-      --brand-2:#ffd36b;
-      --ok:#7cffbe;
+      --bg:#2b1e17;
+      --card:#3a2a20;
+      --muted:#d7c1a5;
+      --brand:#d9a35f;
+      --brand-2:#e8c48b;
+      --ok:#b8d4a3;
       --radius:16px;
     }
-    html,body{margin:0;height:100%;}
-    body{font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;line-height:1.45;color:#eef3ff;background:radial-gradient(1200px 600px at 10% -10%, #13203a 0%, var(--bg) 55%);} /* no busy bg image */
+    html,body{margin:0;min-height:100%;background:#2b1e17;}
+    body{font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;line-height:1.45;color:#f7efe3;background:#2b1e17;background:linear-gradient(180deg,#5c3d2e 0%, #3b281d 35%, #2b1e17 100%);min-height:100vh;} /* no busy bg image */
 
-    /* Hero (keep property aerial) */
-    header.hero{position:relative;text-align:center;color:white;padding:140px 20px;background:url('Screenshot 2025-10-06 132318.png') center/cover no-repeat;}
-    header.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.45));}
-    header.hero>*{position:relative;z-index:1}
-    header.hero h1{margin:0;font-size:clamp(36px,7vw,64px)}
-    header.hero p{margin:10px 0 0;color:#e0e8f5;font-size:18px}
+    /* Hero banner */
+    header.hero{
+      text-align:center;
+      padding:24px 18px 12px;
+      background:none !important;
+      min-height:auto;
+    }
+    .hero-banner{
+      display:block;
+      width:auto;
+      max-width:none;
+      height:auto;
+      margin:0 auto;
+      border-radius:16px;
+    }
 
-    nav.top{position:sticky;top:0;backdrop-filter:blur(8px);background:rgba(8,14,26,.7);border-bottom:1px solid #1f2a44;z-index:10}
+    nav.top{position:sticky;top:0;backdrop-filter:blur(8px);background:rgba(59,40,29,.92);border-bottom:1px solid #8f6a45;z-index:10}
     nav.top ul{display:flex;overflow:auto;list-style:none;margin:0;padding:8px;gap:8px;justify-content:center}
-    nav.top a{color:#dfe7fb;text-decoration:none;padding:10px 12px;border-radius:10px;border:1px solid #203053;font-size:14px}
-    nav.top a:hover,nav.top a:focus{border-color:#355aa4}
+    nav.top a{color:#f7efe3;text-decoration:none;padding:10px 12px;border-radius:10px;border:1px solid #a77b4f;background:rgba(92,61,46,.45);font-size:14px}
+    nav.top a:hover,nav.top a:focus{border-color:#e8c48b;background:rgba(139,96,62,.65)}
 
-    main{padding:18px;display:grid;gap:22px;max-width:1100px;margin:0 auto}
-    .card{background:linear-gradient(180deg,#121a2a,#0f1726);border:1px solid #22304d;border-radius:var(--radius);padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+    main{padding:18px;display:grid;gap:22px;max-width:1100px;margin:0 auto;background:transparent;}
+    .card{background:linear-gradient(180deg,#4b3427,#38271e);border:1px solid #8f6a45;border-radius:var(--radius);padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
 
     /* Lookup styles */
     .lookup{display:grid;gap:12px}
     .lookup .row{display:grid;grid-template-columns:1fr;gap:10px}
     .select{display:flex;gap:10px}
-    .select input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #2a3a61;background:#0b1426;color:#eaf1ff}
-    .select button{padding:12px 14px;border-radius:12px;border:1px solid #2a3a61;background:linear-gradient(160deg,#173057,#0b1426);color:#eaf1ff}
+    .select input{flex:1;padding:12px 14px;border-radius:12px;border:1px solid #a77b4f;background:#2f2119;color:#f7efe3}
+    .select button{padding:12px 14px;border-radius:12px;border:1px solid #c7975f;background:linear-gradient(160deg,#c7975f,#7a4f32);color:#241812;font-weight:700}
     .result{display:grid;gap:10px}
-    .assign{display:grid;gap:6px;padding:12px;border-radius:14px;border:1px dashed #2a3a61;background:#0b1426}
-    .assign strong{color:var(--brand)}
-    .pill{display:inline-block;padding:.25rem .55rem;border:1px solid #30507e;border-radius:999px;font-size:13px;color:#cfe6ff}
-    .small{font-size:12px;color:#9fb0cf}
+    .assign{display:grid;gap:6px;padding:12px;border-radius:14px;border:1px dashed #b98959;background:#2f2119}
+    .assign strong{color:#f0c987}
+    .pill{display:inline-block;padding:.25rem .55rem;border:1px solid #b98959;border-radius:999px;font-size:13px;color:#f6ddb6;background:rgba(122,79,50,.35)}
+    .small{font-size:12px;color:#d7c1a5}
 
     /* Tables */
     .tbl{width:100%;border-collapse:collapse;font-size:14px}
-    .tbl th,.tbl td{padding:10px;border-bottom:1px solid #253457;text-align:left}
-    .tbl th{cursor:pointer;background:#111b2e}
+    .tbl th,.tbl td{padding:10px;border-bottom:1px solid #7b5a3d;text-align:left}
+    .tbl th{cursor:pointer;background:#6f4a32;color:#fff2df}
 
-    footer{padding:40px 18px;text-align:center;color:#9fb0cf}
+
+    .select input::placeholder{color:#cbb493;}
+    .select input:focus{
+      outline:none;
+      border-color:#e8c48b;
+      box-shadow:0 0 0 3px rgba(232,196,139,.18);
+    }
+    .select button:hover,
+    .select button:focus{
+      border-color:#f0c987;
+      background:linear-gradient(160deg,#d9a35f,#8c5d3a);
+      outline:none;
+    }
+    .tbl tbody tr:hover{background:rgba(139,96,62,.22);}
+
+
+    .agenda-list{display:grid;gap:14px}
+    .agenda-day{
+      padding:14px;
+      border:1px solid #b98959;
+      border-radius:14px;
+      background:rgba(47,33,25,.55);
+    }
+    .agenda-day h3{
+      margin:0 0 8px;
+      color:#f0c987;
+      font-size:18px;
+    }
+    .agenda-day ul{
+      margin:0;
+      padding-left:22px;
+    }
+    .agenda-day li{
+      margin:6px 0;
+    }
+
+
+    .travel-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+      gap:8px;
+      margin-top:6px;
+    }
+    .travel-grid div{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      align-items:center;
+    }
+
+
+    .transport-wrap{
+      display:grid;
+      gap:18px;
+    }
+    .transport-wrap h3{
+      margin:10px 0 8px;
+      color:#f0c987;
+      font-size:18px;
+    }
+    .transport-groups{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:12px;
+    }
+    .transport-group{
+      border:1px solid #b98959;
+      border-radius:14px;
+      overflow:hidden;
+      background:rgba(47,33,25,.55);
+    }
+    .transport-group h4{
+      margin:0;
+      padding:10px 12px;
+      background:#6f4a32;
+      color:#fff2df;
+      font-size:16px;
+    }
+    .transport-group.jake h4{background:#7b5f3f;}
+    .transport-group.matt h4{background:#6c5a50;}
+    .transport-group.joe h4{background:#5f6f4a;}
+    .transport-group.keith h4{background:#7a4b4b;}
+    .transport-group.uber h4{background:#5b4f70;}
+    .transport-list{
+      list-style:none;
+      margin:0;
+      padding:0;
+    }
+    .transport-list li{
+      padding:10px 12px;
+      border-top:1px solid rgba(185,137,89,.35);
+    }
+    .transport-person{
+      font-weight:700;
+      color:#f0c987;
+    }
+    .transport-detail{
+      display:block;
+      margin-top:2px;
+      color:#d7c1a5;
+      font-size:12px;
+    }
+
+    footer{padding:40px 18px;text-align:center;color:#d7c1a5}
   </style>
 </head>
 <body>
+
+  <div class="banner-wrap" aria-label="Trip banner">
+    </div>
   <!-- JACK MODE v3 START -->
   <style>
     #jackModeBtn{
@@ -73,6 +188,44 @@
     // --- Jack Mode v3: includes food/menu phrase translation ---
     (function(){
       const mapExact = new Map([
+        ['Joe (Wednesday)', 'ジョー（水曜日）'],
+        ['Matt (Wednesday)', 'マット（水曜日）'],
+        ['Keith (To LA)', 'キース（LAへ）'],
+        ['Keith (From LA)', 'キース（LAから）'],
+        ['Joe + Additional Driver', 'ジョー + 追加ドライバー'],
+        ['Uber (Reimbursed)', 'Uber（精算済み）'],
+        ['Unassigned', '未割り当て'],
+        ['Departure Dropoff Assignments', '出発時の送り割り当て'],
+        ['Arrival Pickup Assignments', '到着時の迎え割り当て'],
+        ['Use this section to quickly see airport pickup and dropoff car assignments.', '空港への迎えと送りの車割り当てをすばやく確認できます。'],
+        ['🚗 Transportation', '🚗 交通'],
+        ['Transportation', '交通'],
+        ['Wednesday', '水曜日'],
+        ['Car Assignment - Dropoff:', '車の割り当て - 降ろし：'],
+        ['Departure Time:', '出発時間：'],
+        ['Departure Date:', '出発日：'],
+        ['Departure City:', '出発都市：'],
+        ['Car Assignment - Pickup:', '車の割り当て - 迎え：'],
+        ['Arrival Time:', '到着時間：'],
+        ['Arrival Date:', '到着日：'],
+        ['Arrival City:', '到着都市：'],
+        ['Travel Info', '移動情報'],
+        ['Head to airport or explore Palm Springs in assigned car', '割り当てられた車で空港へ向かう、またはパームスプリングスを散策'],
+        ['Check out by 10:00am', '午前10:00までにチェックアウト'],
+        ['Chill', 'のんびり過ごす'],
+        ['Pre-dinner celebration and toast at 5:00pm', '午後5:00に夕食前のお祝いと乾杯'],
+        ['Depart for Joshua Tree (by 8:30am)', 'ジョシュアツリーへ出発（午前8:30までに）'],
+        ['Arrive at the Airbnb', 'Airbnbに到着'],
+        ['Sunday, June 21', '6月21日（日）'],
+        ['Saturday, June 20', '6月20日（土）'],
+        ['Friday, June 19', '6月19日（金）'],
+        ['Thursday, June 18', '6月18日（木）'],
+        ['📅 Agenda', '📅 予定'],
+        ['Agenda', '予定'],
+        ['Your meal shifts', 'あなたの食事当番'],
+        ['Your meal shift', 'あなたの食事当番'],
+        ['Your meal shifts:', 'あなたの食事当番：'],
+        ['Your meal shift:', 'あなたの食事当番：'],
         ['🟦 Boys Trip','🟦 ボーイズトリップ'],
         ['Lookup','検索'],
         ['Meal Shifts','食事当番'],
@@ -83,6 +236,15 @@
         ['Locations:','場所：'],
         ['Name','名前'],
         ['Assignment','割り当て'],
+        ['Bed Assignment','ベッド割り当て'],
+        ['Living Room, Queen 1','リビングルーム、クイーン 1'],
+        ['King 1','キング 1'],
+        ['King 2','キング 2'],
+        ['Queen 1','クイーン 1'],
+        ['Bottom Bunk','下段ベッド'],
+        ['Top Bunk','上段ベッド'],
+        ['Double 1','ダブル 1'],
+        ['Boy','参加者'],
         ['Location','場所'],
         ['Meal','食事'],
         ['Menu','メニュー'],
@@ -99,12 +261,33 @@
 
       // High-priority phrase translations (longest-first)
       const phrasePairs = [
+        ['Check out', 'チェックアウト'],
+        ['Pre-dinner celebration and toast', '夕食前のお祝いと乾杯'],
+        ['Depart for Joshua Tree', 'ジョシュアツリーへ出発'],
+        ['Pizza Party', 'ピザパーティー'],
+        ['Overnight Oats, Granola, Fresh Fruit, etc.', 'オーバーナイトオーツ、グラノーラ、フレッシュフルーツなど'],
+        ['TBD - Light Lunch', '未定 - 軽い昼食'],
+        ['Marinated Chicken and Roasted Potatoes', 'マリネチキンとローストポテト'],
+        ['Breakfast needs to be prepared by 8:00am for an 8:30am departure for Joshua Tree', 'ジョシュアツリーへ午前8:30に出発するため、朝食は午前8:00までに準備してください'],
+        ['Room & Bed Assignments', '部屋とベッドの割り当て'],
+        ['Start typing your name…', '名前を入力してください…'],
+        ['Bottom Bunk', '下段ベッド'],
+        ['Top Bunk', '上段ベッド'],
+        ['Living Room', 'リビングルーム'],
+        ['Bed Assignment', 'ベッド割り当て'],
         ['Grilled Chicken Souvlaki with Pita and Tzatziki', 'グリルチキンのスブラキ（ピタ＆ザジキ添え）'],
         ["Kevin's Famous Ice Cream Sundaes", 'ケビン名物アイスクリームサンデー'],
-        ['Eggs Benedict', 'エッグベネディクト'],
-        ['French Toast Bake', 'フレンチトースト焼き'],
-        ['Country Potatoes', 'カントリーポテト'],
+        
+        
+        
         ['Fresh Fruit', 'フレッシュフルーツ'],
+        ['Pizza Party', 'ピザパーティー'],
+        ['Overnight Oats', 'オーバーナイトオーツ'],
+        ['Granola', 'グラノーラ'],
+        ['Keith\'s Famous Catered Taco Night', 'キースの名物ケータリング・タコナイト'],
+        ['Joe\'s Famous B&G Breakfast', 'ジョーの名物B&G朝食'],
+        ['Marinated Chicken and Roasted Potatoes', 'マリネチキンとローストポテト'],
+        ['Light Lunch', '軽食ランチ'],
         ['Coffee', 'コーヒー'],
         ['Juice/Smoothie', 'ジュース／スムージー'],
         ["Jordy's Famous Sandwiches", 'ジョーディの名物サンドイッチ'],
@@ -127,14 +310,42 @@
 
       // Generic regex replacements
       const regexReplacements = [
+        [/Wednesday/gi, '水曜日'],
+        [/Car Assignment - Dropoff:/gi, '車の割り当て - 降ろし：'],
+        [/Departure Time:/gi, '出発時間：'],
+        [/Departure Date:/gi, '出発日：'],
+        [/Departure City:/gi, '出発都市：'],
+        [/Car Assignment - Pickup:/gi, '車の割り当て - 迎え：'],
+        [/Arrival Time:/gi, '到着時間：'],
+        [/Arrival Date:/gi, '到着日：'],
+        [/Arrival City:/gi, '到着都市：'],
+        [/Travel Info/gi, '移動情報'],
+        [/Your meal shifts?/gi, 'あなたの食事当番'],
+        [/Your meal shifts?:/gi, 'あなたの食事当番：'],
+        [/Room:/gi, '部屋：'],
+        [/Bedroom\s*(\d+),\s*King\s*(\d+)/gi, '寝室 $1、キング $2'],
+        [/Bedroom\s*(\d+),\s*Queen\s*(\d+)/gi, '寝室 $1、クイーン $2'],
+        [/Bedroom\s*(\d+),\s*Double\s*(\d+)/gi, '寝室 $1、ダブル $2'],
+        [/Bedroom\s*(\d+),\s*Bottom Bunk/gi, '寝室 $1、下段ベッド'],
+        [/Bedroom\s*(\d+),\s*Top Bunk/gi, '寝室 $1、上段ベッド'],
+        [/Living Room,\s*Queen\s*(\d+)/gi, 'リビングルーム、クイーン $1'],
         [/Palm Desert, California • June 18–21/g, 'カリフォルニア州パームデザート • 6月18日〜21日'],
+        [/Start typing your name… \(e\.g\., Jack, Blake, Alex\)/gi, '名前を入力してください…'],
+        [/Room & Bed Assignments/gi, '部屋とベッドの割り当て'],
+        [/Meal Shifts/gi, '食事当番'],
+        [/Find your details/gi, 'あなたの情報を探す'],
+        [/Bed Assignment/gi, 'ベッド割り当て'],
+        [/\bBoy\b/gi, '参加者'],
+        [/\bView\b/gi, '表示'],
         [/\bThursday\b/gi, '木曜'],[/\bFriday\b/gi, '金曜'],[/\bSaturday\b/gi, '土曜'],
         [/\bBreakfast\b/gi, '朝食'],[/\bLunch\b/gi, '昼食'],[/\bDinner\b/gi, '夕食'],[/\bCatered\b/gi, 'ケータリング'],
         [/\bMenu\b/gi, 'メニュー'],
-        [/Bedroom\s*(\d+)/gi, '寝室 $1'],[/King bed/gi, 'キングベッド'],[/Queen bed\s*(\d*)/gi, 'クイーンベッド $1'],[/Bunk bed\s*(\d*)/gi, '二段ベッド $1'],
+        [/Bedroom\s*(\d+),\s*King\s*(\d+)/gi, '寝室 $1、キング $2'],[/Bedroom\s*(\d+),\s*Queen\s*(\d+)/gi, '寝室 $1、クイーン $2'],[/Bedroom\s*(\d+),\s*Double\s*(\d+)/gi, '寝室 $1、ダブル $2'],[/Bedroom\s*(\d+),\s*Bottom Bunk/gi, '寝室 $1、下段ベッド'],[/Bedroom\s*(\d+),\s*Top Bunk/gi, '寝室 $1、上段ベッド'],[/Bedroom\s*(\d+)/gi, '寝室 $1'],[/Living Room/gi, 'リビングルーム'],[/King bed\s*(\d*)/gi, 'キングベッド $1'],[/Queen bed\s*(\d*)/gi, 'クイーンベッド $1'],[/Queen-size bottom bunk/gi, 'クイーンサイズ下段ベッド'],[/Twin-size top bunk/gi, 'ツインサイズ上段ベッド'],[/Double bed\s*(\d*)/gi, 'ダブルベッド $1'],[/Bunk bed\s*(\d*)/gi, '二段ベッド $1'],
         [/Main House/gi, '本館'],[/Casita\s*1/gi, 'カシータ1'],[/Casita\s*2/gi, 'カシータ2'],[/Casita\s*3/gi, 'カシータ3'],
         [/\bKing\b/gi, 'キング'],[/\bQueen\b/gi, 'クイーン'],[/\bBunk\b/gi, '二段ベッド']
       ];
+
+      const participantNames = new Set(['Juan','Jordan','Kevin','Jack','Gabe','Dan','Daniel','Alex','Jake','Peter','Keith','Blake','Matt','Kaleb','TK','Tyler','Mason','Joe','Sam','Will','Trevor','Daniel']);
 
       const ATTRS = ['aria-label','title','placeholder','alt','data-title','data-label'];
 
@@ -157,6 +368,7 @@
       function translateString(s){
         if(!s) return s;
         const trimmed = s.trim();
+        if(participantNames.has(trimmed)) return s;
         if(mapExact.has(trimmed)){
           return s.replace(trimmed, mapExact.get(trimmed));
         }
@@ -216,8 +428,18 @@
       btn.addEventListener('click', ()=>{
         jackOn = !jackOn;
         btn.setAttribute('aria-pressed', String(jackOn));
+        document.body.classList.toggle('jack-mode-active', jackOn);
+
+        const heroBanner = document.querySelector('.hero-banner');
+        if(heroBanner){
+          heroBanner.src = jackOn
+            ? (heroBanner.dataset.jackSrc || 'https://iili.io/CB9K3Sn.md.png')
+            : (heroBanner.dataset.normalSrc || 'https://iili.io/CqyuYss.md.png');
+          heroBanner.alt = jackOn ? 'Jack Mode Trip Banner' : 'Palm Desert Trip Banner';
+        }
+
         walkAndTranslate(document.body, jackOn);
-        btn.textContent = jackOn ? 'Jack Mode (日本語)' : 'Jack Mode';
+        btn.textContent = jackOn ? 'Jack Mode（日本語）' : 'Jack Mode';
       });
 
       const observer = new MutationObserver((muts)=>{
@@ -231,16 +453,19 @@
   </script>
   <!-- JACK MODE v3 END -->
 
-  <header class="hero" aria-label="Trip overview">
-    <h1>🟦 Boys Trip</h1>
-    <p>Palm Desert, California • June 18–21</p>
-  </header>
+  
+<header class="hero" aria-label="Trip overview">
+  <img src="https://iili.io/CqyuYss.md.png" alt="Palm Desert Trip Banner" class="hero-banner" data-normal-src="https://iili.io/CqyuYss.md.png" data-jack-src="https://iili.io/CB9K3Sn.md.png">
+</header>
+
 
   <nav class="top" aria-label="Section navigation">
     <ul>
       <li><a href="#lookup">Lookup</a></li>
       <li><a href="#meals">Meal Shifts</a></li>
       <li><a href="#rooms">Room Assignments</a></li>
+      <li><a href="#agenda">Agenda</a></li>
+      <li><a href="#transportation">Transportation</a></li>
     </ul>
   </nav>
 
@@ -250,13 +475,13 @@
       <h2 id="lookup-title">Find your details</h2>
       <div class="row">
         <label class="select" for="nameInput" aria-label="Search by name">
-          <input id="nameInput" list="nameList" placeholder="Start typing your name… (e.g., TBD, TBD, TBD)" />
+          <input id="nameInput" list="nameList" placeholder="Start typing your name… (e.g., Jack, Blake, Alex)" />
           <datalist id="nameList"></datalist>
           <button id="viewBtn" type="button">View</button>
         </label>
       </div>
       <div id="result" class="result" aria-live="polite"></div>
-      <p class="small">When populated, you can share a direct link like <code>?name=First%20Last</code>. The page will pre‑fill.</p>
+      
     </section>
 
     <!-- Meals -->
@@ -269,71 +494,160 @@
     <section id="rooms" class="card">
       <h2>🛏️ Room & Bed Assignments</h2>
       <table class="tbl" id="roomsTable"></table>
-      <p class="small">Legend: <span class="pill">KG = King</span> <span class="pill">QN = Queen</span> <span class="pill">BU = Bunk</span> • Locations: <span class="pill">MH = Main House</span> <span class="pill">C1 = Casita 1</span> <span class="pill">C2 = Casita 2</span> <span class="pill">C3 = Casita 3</span></p>
     </section>
+
+    <!-- Agenda -->
+    <section id="agenda" class="card">
+      <h2>📅 Agenda</h2>
+      <div class="agenda-list">
+        <div class="agenda-day">
+          <h3>Thursday, June 18</h3>
+          <ul>
+            <li>Arrive at the Airbnb</li>
+          </ul>
+        </div>
+        <div class="agenda-day">
+          <h3>Friday, June 19</h3>
+          <ul>
+            <li>Depart for Joshua Tree (by 8:30am)</li>
+            <li>Pre-dinner celebration and toast at 5:00pm</li>
+          </ul>
+        </div>
+        <div class="agenda-day">
+          <h3>Saturday, June 20</h3>
+          <ul>
+            <li>Chill</li>
+          </ul>
+        </div>
+        <div class="agenda-day">
+          <h3>Sunday, June 21</h3>
+          <ul>
+            <li>Check out by 10:00am</li>
+            <li>Head to airport or explore Palm Springs in assigned car</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Transportation -->
+    <section id="transportation" class="card">
+      <h2>🚗 Transportation</h2>
+      <p class="small">Use this section to quickly see airport pickup and dropoff car assignments.</p>
+
+      <div class="transport-wrap">
+        <div>
+          <h3>Arrival Pickup Assignments</h3>
+          <div id="pickupGroups" class="transport-groups"></div>
+        </div>
+
+        <div>
+          <h3>Departure Dropoff Assignments</h3>
+          <div id="dropoffGroups" class="transport-groups"></div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer>
-    <div>Nonrefundable deposits are due by 12/31/2025.</div>
+    
   </footer>
 
   <script>
     // ------------------ DATA ------------------
     const meals = [
-      { when: 'Thursday Dinner (~8:00pm)', menu: 'Grilled Chicken Souvlaki with Pita and Tzatziki; Kevin\'s Famous Ice Cream Sundaes', people: ['TBD', 'TBD', 'TBD', 'TBD', 'TBD'] },
-      { when: 'Friday Breakfast (9:00am)', menu: 'Eggs Benedict; French Toast Bake; Country Potatoes; Fresh Fruit; Coffee; Juice/Smoothie', people: ['TBD', 'TBD', 'TBD'] },
-      { when: 'Friday Lunch (2:00pm)', menu: "Jordy's Famous Sandwiches", people: ['TBD', 'TBD'] },
-      { when: 'Friday Dinner (8:00pm)', menu: "Chef Will's Famous Braised Short Ribs", people: ['TBD', 'TBD', 'TBD', 'TBD', 'TBD'] },
-      { when: 'Saturday Breakfast (9:00am)', menu: 'B&G Breakfast', people: ['TBD', 'TBD', 'TBD'] },
-      { when: 'Saturday Lunch (2:00pm)', menu: '', people: ['TBD', 'TBD'] },
-      { when: 'Saturday Dinner (Catered 8:00pm)', menu: '', people: ['TBD', 'TBD'] }
+      { when: 'Thursday Dinner (~8:00pm)', menu: 'Pizza Party', people: ['Daniel', 'Kevin', 'Kaleb', 'Blake'] },
+      { when: 'Friday Breakfast (8:00am)', menu: 'Overnight Oats, Granola, Fresh Fruit, etc.', people: ['Alex', 'Trevor', 'Jack', 'Matt'], notes:'Needs to be prepared early for 8:30am departure for Joshua Tree' },
+      { when: 'Friday Lunch (2:00pm)', menu: "Jordy\'s Famous Sandwiches", people: ['Jordan', 'Juan'] },
+      { when: 'Friday Dinner (Catered 8:00pm)', menu: "Keith\'s Famous Catered Taco Night", people: ['Keith', 'Tyler'] },
+      { when: 'Saturday Breakfast (9:00am)', menu: "Joe\'s Famous B&G Breakfast", people: ['Joe', 'Sam', 'Matt'] },
+      { when: 'Saturday Lunch (2:00pm)', menu: 'TBD - Light Lunch', people: ['Peter', 'TK'] },
+      { when: 'Saturday Dinner (8:00pm)', menu: 'Marinated Chicken and Roasted Potatoes', people: ['Will', 'Gabe', 'Dan', 'Mason', 'Jake'] }
     ];
 
     const rooms = [
-      { boy:1,  code:'BD1 KG1 MH', name:'Kaleb' },
-      { boy:2,  code:'BD2 KG1 MH', name:'TBD' },
-      { boy:3,  code:'BD2 KG2 MH', name:'TBD' },
-      { boy:4,  code:'BD3 KG1 MH', name:'TBD' },
-      { boy:5,  code:'BD3 KG2 MH', name:'TBD' },
-      { boy:6,  code:'BD4 KG1 MH', name:'TBD' },
-      { boy:7,  code:'BD4 KG2 MH', name:'TBD' },
-      { boy:8,  code:'BD5 KG1 C1', name:'TBD' },
-      { boy:9,  code:'BD5 BU1 C1', name:'TBD' },
-      { boy:10, code:'BD5 BU2 C1', name:'TBD' },
-      { boy:11, code:'BD6 QN1 C1', name:'TBD' },
-      { boy:12, code:'BD6 QN2 C1', name:'TBD' },
-      { boy:13, code:'BD6 BU1 C1', name:'TBD' },
-      { boy:14, code:'BD6 BU3 C1', name:'TBD' },
-      { boy:15, code:'BD6 BU4 C1', name:'TBD' },
-      { boy:16, code:'BD7 QN1 C2', name:'TBD' },
-      { boy:17, code:'BD7 QN2 C2', name:'TBD' },
-      { boy:18, code:'BD7 BU1 C2', name:'TBD' },
-      { boy:19, code:'BD7 BU2 C2', name:'TBD' },
-      { boy:20, code:'BD8 KG1 C2', name:'TBD' },
-      { boy:21, code:'BD8 QN1 C2', name:'TBD' },
-      { boy:22, code:'BD8 QN2 C2', name:'TBD' }
-      // Note: BD9 QN1 C3* (Boy 23) not listed in provided names
+      { boy:1,  code:'BD1 KG1', name:'Juan' },
+      { boy:2,  code:'BD2 KG1', name:'Jordan' },
+      { boy:3,  code:'BD2 QN1', name:'Kevin' },
+      { boy:4,  code:'BD3 QN1', name:'Jack' },
+      { boy:5,  code:'BD3 BU1', name:'Gabe' },
+      { boy:6,  code:'BD3 BU2', name:'Dan' },
+      { boy:7,  code:'BD4 BU1', name:'Daniel' },
+      { boy:8,  code:'BD4 BU2', name:'' },
+      { boy:9,  code:'BD5 QN1', name:'Alex' },
+      { boy:10, code:'BD5 BU1', name:'Jake' },
+      { boy:11, code:'BD5 BU2', name:'Peter' },
+      { boy:12, code:'BD6 KG1', name:'Keith' },
+      { boy:13, code:'BD6 DB1', name:'Blake' },
+      { boy:14, code:'BD7 KG1', name:'Matt' },
+      { boy:15, code:'BD8 KG1', name:'Kaleb' },
+      { boy:16, code:'BD9 KG1', name:'TK' },
+      { boy:17, code:'BD9 BU1', name:'Tyler' },
+      { boy:18, code:'BD9 BU2', name:'Mason' },
+      { boy:19, code:'BD10 KG1', name:'Joe' },
+      { boy:20, code:'BD10 KG2', name:'Sam' },
+      { boy:21, code:'BD11 BU1', name:'Will' },
+      { boy:22, code:'BD11 BU2', name:'Trevor' },
+      { boy:23, code:'LR QN1', name:'' }
     ];
+
+    const travelInfo = {
+      'Daniel': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'11:20 AM', pickup:'Matt', departureCity:'PSP', departureDate:'06/21', departureTime:'4:56 PM', dropoff:'Jake' },
+      'Jack': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'11:20 AM', pickup:'Jake', departureCity:'PSP', departureDate:'06/21', departureTime:'4:56 PM', dropoff:'Jake' },
+      'Jake': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'11:20 AM', pickup:'Jake', departureCity:'PSP', departureDate:'06/21', departureTime:'4:56 PM', dropoff:'Jake' },
+      'Alex': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'11:20 AM', pickup:'Jake', departureCity:'LAX', departureDate:'', departureTime:'', dropoff:'Keith' },
+      'Trevor': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'6:56 PM', pickup:'Uber (Reimbursed)', departureCity:'PSP', departureDate:'06/21', departureTime:'4:56 PM', dropoff:'Jake' },
+      'TK': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'12:28 PM', pickup:'Jake', departureCity:'PSP', departureDate:'06/21', departureTime:'1:30 PM', dropoff:'Matt' },
+      'Will': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'11:20 AM', pickup:'Joe', departureCity:'PSP', departureDate:'06/21', departureTime:'4:56 PM', dropoff:'Joe' },
+      'Tyler': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'11:20 AM', pickup:'Joe', departureCity:'PSP', departureDate:'06/21', departureTime:'4:56 PM', dropoff:'Joe' },
+      'Blake': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'11:20 AM', pickup:'Matt', departureCity:'PSP', departureDate:'06/21', departureTime:'4:56 PM', dropoff:'Joe' },
+      'Dan': { arrivalCity:'PSP', arrivalDate:'06/18', arrivalTime:'11:20 AM', pickup:'Joe', departureCity:'PSP', departureDate:'06/21', departureTime:'4:56 PM', dropoff:'Joe' },
+      'Sam': { arrivalCity:'PSP', arrivalDate:'06/17', arrivalTime:'12:00 PM', pickup:'Joe (Wednesday)', departureCity:'PSP', departureDate:'06/21', departureTime:'12:45 PM', dropoff:'Matt' },
+      'Joe': { arrivalCity:'PSP', arrivalDate:'06/17', arrivalTime:'10:55 AM', pickup:'Joe (Wednesday)', departureCity:'PSP', departureDate:'06/21', departureTime:'12:45 PM', dropoff:'Joe' },
+      'Kaleb': { arrivalCity:'LAX', arrivalDate:'06/15', arrivalTime:'8:24 AM', pickup:'Keith', departureCity:'PSP', departureDate:'06/21', departureTime:'4:48 PM', dropoff:'Jake' },
+      'Keith': { arrivalCity:'LAX', arrivalDate:'06/17', arrivalTime:'5:15 PM', pickup:'Keith', departureCity:'LAX', departureDate:'06/21', departureTime:'4:10 PM', dropoff:'Keith' },
+      'Mason': { arrivalCity:'LAX', arrivalDate:'06/12', arrivalTime:'12:30 PM', pickup:'Keith', departureCity:'LAX', departureDate:'06/21', departureTime:'5:45 PM', dropoff:'Keith' },
+      'Peter': { arrivalCity:'LAX', arrivalDate:'06/18', arrivalTime:'10:15 AM', pickup:'Keith', departureCity:'PSP', departureDate:'06/21', departureTime:'6:40 PM', dropoff:'Jake' },
+      'Kevin': { arrivalCity:'LAX', arrivalDate:'', arrivalTime:'', pickup:'Keith', departureCity:'LAX', departureDate:'', departureTime:'', dropoff:'Keith' },
+      'Gabe': { arrivalCity:'LAX', arrivalDate:'06/16', arrivalTime:'9:00 AM', pickup:'Keith', departureCity:'LAX', departureDate:'06/21', departureTime:'8:32 PM', dropoff:'Keith' },
+      'Juan': { arrivalCity:'PSP', arrivalDate:'06/17', arrivalTime:'11:52 AM', pickup:'Matt (Wednesday)', departureCity:'PSP', departureDate:'06/21', departureTime:'4:56 PM', dropoff:'Joe' },
+      'Jordan': { arrivalCity:'LAS', arrivalDate:'06/16', arrivalTime:'8:50 PM', pickup:'Matt (Wednesday)', departureCity:'LAS', departureDate:'06/21', departureTime:'', dropoff:'Matt' },
+      'Matt': { arrivalCity:'LAS', arrivalDate:'06/16', arrivalTime:'8:50 PM', pickup:'Matt (Wednesday)', departureCity:'LAS', departureDate:'06/21', departureTime:'', dropoff:'Matt' }
+    };
 
     // -------------- HELPERS --------------
     function codeToPretty(code){
-      const [bd, bedType, loc] = code.split(' ');
-      const bdNum = bd.replace('BD','');
-      const locMap = { MH:'Main House', C1:'Casita 1', C2:'Casita 2', C3:'Casita 3' };
-      const type = bedType.slice(0,2); // KG, QN, BU
+      const parts = code.split(' ');
+      const roomCode = parts[0];
+      const bedCode = parts[1] || '';
+
+      const roomPretty = roomCode === 'LR'
+        ? 'Living Room'
+        : `Bedroom ${roomCode.replace('BD','')}`;
+
+      const type = bedCode.slice(0,2);
+      const num = bedCode.replace(type, '');
       let bedPretty = '';
-      if(type==='KG') bedPretty = 'King bed';
-      else if(type==='QN') bedPretty = 'Queen bed ' + bedType.replace('QN','');
-      else if(type==='BU') bedPretty = 'Bunk bed ' + bedType.replace('BU','');
-      else bedPretty = bedType;
-      return { bedroom:`Bedroom ${bdNum}`, bed:bedPretty.trim(), location:locMap[loc]||loc };
+
+      if(type === 'KG') bedPretty = 'King bed' + (num ? ` ${num}` : '');
+      else if(type === 'QN') bedPretty = 'Queen bed' + (num ? ` ${num}` : '');
+      else if(type === 'BU'){
+        if(num === '1') bedPretty = 'Queen-size bottom bunk';
+        else if(num === '2') bedPretty = 'Twin-size top bunk';
+        else bedPretty = 'Bunk bed' + (num ? ` ${num}` : '');
+      }
+      else if(type === 'DB') bedPretty = 'Double bed' + (num ? ` ${num}` : '');
+      else bedPretty = bedCode;
+
+      return { bedroom: roomPretty, bed: bedPretty.trim(), location: roomPretty };
     }
 
     const byName = Object.fromEntries(rooms.map(r => [r.name, r]));
 
     // Populate datalist
     const nameList = document.getElementById('nameList');
-    rooms.map(r=>r.name).sort((a,b)=>a.localeCompare(b)).forEach(n=>{
+    rooms.map(r=>r.name).filter(Boolean).sort((a,b)=>a.localeCompare(b)).forEach(n=>{
       const o=document.createElement('option'); o.value=n; nameList.appendChild(o);
     });
 
@@ -350,14 +664,35 @@
       tbl.appendChild(tb);
     }
 
+
+    function bedAssignmentDisplay(code){
+      const parts = code.split(' ');
+      const roomCode = parts[0];
+      const bedCode = parts[1] || '';
+
+      const roomText = roomCode === 'LR'
+        ? 'Living Room'
+        : `Bedroom ${roomCode.replace('BD','')}`;
+
+      const type = bedCode.slice(0,2);
+      const num = bedCode.replace(type, '');
+      let bedText = bedCode;
+
+      if(type === 'KG') bedText = `King ${num}`;
+      else if(type === 'QN') bedText = `Queen ${num}`;
+      else if(type === 'BU') bedText = num === '1' ? 'Bottom Bunk' : num === '2' ? 'Top Bunk' : `Bunk ${num}`;
+      else if(type === 'DB') bedText = `Double ${num}`;
+
+      return `${roomText}, ${bedText}`.trim();
+    }
+
     function renderRooms(){
       const tbl = document.getElementById('roomsTable');
-      tbl.innerHTML = `<thead><tr><th>Name</th><th>Assignment</th><th>Location</th></tr></thead>`;
+      tbl.innerHTML = `<thead><tr><th>Bed Assignment</th><th>Boy</th></tr></thead>`;
       const tb = document.createElement('tbody');
       rooms.forEach(r=>{
-        const info=codeToPretty(r.code);
         const tr=document.createElement('tr');
-        tr.innerHTML=`<td>${r.name}</td><td>${info.bedroom} — ${info.bed}</td><td>${info.location}</td>`;
+        tr.innerHTML=`<td>${bedAssignmentDisplay(r.code)}</td><td>${r.name || ''}</td>`;
         tb.appendChild(tr);
       });
       tbl.appendChild(tb);
@@ -365,9 +700,50 @@
     }
 
     function getMealsFor(name){
+      const aliases = {
+        'Mason':'Mason',
+        'Dan':'Dan',
+        'Tyler':'Tyler'
+      };
+
+      const mealNames = [name];
+      if (aliases[name]) mealNames.push(aliases[name]);
+
       const res = [];
-      meals.forEach(m=>{ if(m.people.includes(name)) res.push({when:m.when, menu:m.menu}); });
+      meals.forEach(m=>{
+        if(m.people.some(p => mealNames.includes(p))){
+          res.push({
+          when:m.when,
+          menu:m.menu,
+          note: m.when === 'Friday Breakfast (8:00am)'
+            ? 'Breakfast needs to be prepared by 8:00am for an 8:30am departure for Joshua Tree'
+            : ''
+        });
+        }
+      });
       return res;
+    }
+
+    function travelLine(label, value){
+      return value ? `<div><span class="small">${label}</span> <span class="pill">${value}</span></div>` : '';
+    }
+
+    function renderTravelInfo(name){
+      const t = travelInfo[name];
+      if(!t) return '';
+      return `
+        <div style="margin-top:8px"><strong>Travel Info</strong></div>
+        <div class="travel-grid">
+          ${travelLine('Arrival City:', t.arrivalCity)}
+          ${travelLine('Arrival Date:', t.arrivalDate)}
+          ${travelLine('Arrival Time:', t.arrivalTime)}
+          ${travelLine('Car Assignment - Pickup:', t.pickup)}
+          ${travelLine('Departure City:', t.departureCity)}
+          ${travelLine('Departure Date:', t.departureDate)}
+          ${travelLine('Departure Time:', t.departureTime)}
+          ${travelLine('Car Assignment - Dropoff:', t.dropoff)}
+        </div>
+      `;
     }
 
     function showResult(name){
@@ -384,9 +760,13 @@
       div.className='assign';
       div.innerHTML = `
         <div><strong>${name}</strong></div>
-        <div>Room: <span class="pill">${info.location}</span> • <span class="pill">${info.bedroom}</span> • <span class="pill">${info.bed}</span></div>
-        <div>${ms.length? 'Your meal shift'+(ms.length>1?'s':'')+':':''}</div>
-        ${ms.map(m=>`<div>• <span class=\"pill\">${m.when}</span> ${m.menu?`<span class=\"small\" style=\"display:block;margin-top:2px\">Menu: ${m.menu}</span>`:''}</div>`).join('') || '<div class="small">You\'re not on a meal shift—enjoy!</div>'}
+        <div>Room: <span class="pill">${bedAssignmentDisplay(rec.code)}</span></div>
+        ${renderTravelInfo(name)}
+        <div>${ms.length ? (document.body.classList.contains('jack-mode-active') ? 'あなたの食事当番：' : 'Your meal shift'+(ms.length>1?'s':'')+':') : ''}</div>
+        ${ms.map(m=>`<div>• <span class=\"pill\">${m.when}</span>
+${m.menu?`<span class=\"small\" style=\"display:block;margin-top:2px\">Menu: ${m.menu}</span>`:''}
+${m.note?`<span class=\"small\" style=\"display:block;margin-top:2px;color:#ffd36b\">${m.note}</span>`:''}
+</div>`).join('') || '<div class="small">You\'re not on a meal shift—enjoy!</div>'}
       `;
       wrap.appendChild(div);
     }
@@ -405,6 +785,93 @@
           th.asc=asc;
         });
       });
+    }
+
+
+    function transportGroupClass(label){
+      const clean = (label || 'unknown').toLowerCase();
+      if(clean.includes('jake')) return 'jake';
+      if(clean.includes('matt')) return 'matt';
+      if(clean.includes('joe')) return 'joe';
+      if(clean.includes('keith')) return 'keith';
+      if(clean.includes('uber')) return 'uber';
+      return 'other';
+    }
+
+    function transportVehicleEmoji(label){
+      const clean = (label || '').toLowerCase();
+      if(clean.includes('keith')) return '🚐';
+      if(clean.includes('joe')) return '🚐';
+      if(clean.includes('jake')) return '🚙';
+      if(clean.includes('matt')) return '🚗';
+      return '';
+    }
+
+    function transportGroupLabel(label, type){
+      if(type === 'dropoff' && label === 'Joe') return 'Joe + Additional Driver';
+      if(type === 'pickup' && label === 'Keith') return 'Keith (From LA)';
+      if(type === 'dropoff' && label === 'Keith') return 'Keith (To LA)';
+      return label;
+    }
+
+    function groupTransportation(type){
+      const groups = {};
+      Object.entries(travelInfo).forEach(([name, t])=>{
+        const key = type === 'pickup' ? (t.pickup || 'Unassigned') : (t.dropoff || 'Unassigned');
+        if(!groups[key]) groups[key] = [];
+        groups[key].push({ name, info:t });
+      });
+      return groups;
+    }
+
+    function renderTransportation(){
+      const pickupEl = document.getElementById('pickupGroups');
+      const dropoffEl = document.getElementById('dropoffGroups');
+      if(!pickupEl || !dropoffEl) return;
+
+      function renderGroup(label, rows, type){
+        const className = transportGroupClass(label);
+        const items = rows
+          .sort((a,b)=>a.name.localeCompare(b.name))
+          .map(({name, info})=>{
+            const city = type === 'pickup' ? info.arrivalCity : info.departureCity;
+            const date = type === 'pickup' ? info.arrivalDate : info.departureDate;
+            const time = type === 'pickup' ? info.arrivalTime : info.departureTime;
+            const detail = [city, date, time].filter(Boolean).join(' • ');
+            return `<li><span class="transport-person">${name}</span>${detail ? `<span class="transport-detail">${detail}</span>` : ''}</li>`;
+          }).join('');
+
+        const displayLabel = transportGroupLabel(label, type);
+        const emoji = transportVehicleEmoji(label);
+        return `
+          <div class="transport-group ${className}">
+            <h4>${emoji ? emoji + ' ' : ''}${displayLabel}</h4>
+            <ul class="transport-list">${items}</ul>
+          </div>
+        `;
+      }
+
+      const pickupGroups = groupTransportation('pickup');
+      const dropoffGroups = groupTransportation('dropoff');
+
+      const groupOrder = ['Matt (Wednesday)','Joe (Wednesday)','Matt','Jake','Joe','Keith','Uber (Reimbursed)','Uber','Unassigned'];
+
+      function sortLabels(labels){
+        return labels.sort((a,b)=>{
+          const ai = groupOrder.indexOf(a);
+          const bi = groupOrder.indexOf(b);
+          if(ai !== -1 || bi !== -1) return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+          return a.localeCompare(b);
+        });
+      }
+
+      pickupEl.innerHTML = sortLabels(Object.keys(pickupGroups))
+        .map(label=>renderGroup(label, pickupGroups[label], 'pickup'))
+        .join('');
+
+      dropoffEl.innerHTML = sortLabels(Object.keys(dropoffGroups))
+        .map(label=>renderGroup(label, dropoffGroups[label], 'dropoff'))
+        .join('');
     }
 
     // Hook up UI
@@ -427,6 +894,7 @@
 
     renderMeals();
     renderRooms();
+    renderTransportation();
   </script>
 </body>
 </html>
