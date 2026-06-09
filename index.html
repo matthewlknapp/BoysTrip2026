@@ -184,6 +184,17 @@
 
 
     @media (max-width: 640px){
+      #jackModeBtn{
+        left:50%;
+        right:auto;
+        top:auto;
+        bottom:12px;
+        transform:translateX(-50%);
+        padding:9px 15px;
+        font-size:14px;
+        border-radius:999px;
+      }
+      body.has-jack-mode-btn{padding-bottom:68px;}
       header.hero{padding:14px 10px 8px;}
       .hero-banner{
         width:100%;
@@ -191,33 +202,47 @@
         border-radius:12px;
       }
       nav.top ul{
-        justify-content:flex-start;
-        flex-wrap:nowrap;
-        overflow-x:auto;
-        -webkit-overflow-scrolling:touch;
+        justify-content:center;
+        flex-wrap:wrap;
+        overflow:visible;
         padding:8px 10px;
-        gap:6px;
+        gap:7px;
       }
-      nav.top li{flex:0 0 auto;}
+      nav.top li{flex:0 1 auto;}
       nav.top a{
         font-size:13px;
         padding:8px 9px;
+        text-align:center;
       }
       main{padding:12px;}
       #jackModeBtn{
-        top:10px;
-        right:10px;
-        padding:10px 14px;
-        font-size:15px;
-        border-radius:12px;
-      }
+      position:fixed;
+      left:50%;
+      right:auto;
+      top:auto;
+      bottom:18px;
+      transform:translateX(-50%);
+      z-index:9999;
+      padding:12px 20px;
+      font-size:16px;
+      font-weight:700;
+      border:none;
+      border-radius:999px;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+      background:linear-gradient(135deg, var(--brand-2, #ffd36b), #ff9f1a);
+      color:#0b1220;
+      cursor:pointer;
+      letter-spacing:.3px;
+      max-width:calc(100vw - 32px);
+      white-space:nowrap;
+    }
       body.has-jack-mode-btn{scroll-padding-top:58px;}
     }
     @media (min-width: 641px){
       nav.top li{flex:0 0 auto;}
     }
 
-    footer{padding:40px 18px;text-align:center;color:#d7c1a5}
+    footer{padding:40px 18px 90px;text-align:center;color:#d7c1a5}
   </style>
 </head>
 <body>
@@ -233,8 +258,8 @@
       background:linear-gradient(135deg, var(--brand-2, #ffd36b), #ff9f1a);
       color:#0b1220; cursor:pointer; letter-spacing:.3px;
     }
-    #jackModeBtn:active{ transform:translateY(1px); }
-    body.has-jack-mode-btn { scroll-padding-top: 72px; }
+    #jackModeBtn:active{ transform:translateX(-50%) translateY(1px); }
+    body.has-jack-mode-btn { padding-bottom: 78px; }
   </style>
 
   <button id="jackModeBtn" type="button" aria-pressed="false">Jack Mode</button>
