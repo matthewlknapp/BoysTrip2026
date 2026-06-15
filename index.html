@@ -405,7 +405,7 @@
         ['Depart for Joshua Tree', 'ジョシュアツリーへ出発'],
         ['Pizza Party', 'ピザパーティー'],
         ['Overnight Oats, Granola, Fresh Fruit, etc.', 'オーバーナイトオーツ、グラノーラ、フレッシュフルーツなど'],
-        ['TBD - Light Lunch', '未定 - 軽い昼食'],
+        ['Build Your Own Sub', '未定 - 軽い昼食'],
         ['Marinated Chicken and Roasted Potatoes', 'マリネチキンとローストポテト'],
         ['Breakfast needs to be prepared by 8:00am for an 8:30am departure for Joshua Tree', 'ジョシュアツリーへ午前8:30に出発するため、朝食は午前8:00までに準備してください'],
         ['Room & Bed Assignments', '部屋とベッドの割り当て'],
@@ -426,7 +426,7 @@
         ['Keith\'s Famous Catered Taco Night', 'キースの名物ケータリング・タコナイト'],
         ['Joe\'s Famous B&G Breakfast', 'ジョーの名物B&G朝食'],
         ['Marinated Chicken and Roasted Potatoes', 'マリネチキンとローストポテト'],
-        ['Light Lunch', '軽食ランチ'],
+        ['Build Your Own Sub', 'セルフサンドイッチ'],
         ['Coffee', 'コーヒー'],
         ['Juice/Smoothie', 'ジュース／スムージー'],
         ["Jordy's Famous Sandwiches", 'ジョーディの名物サンドイッチ'],
@@ -449,6 +449,7 @@
 
       // Generic regex replacements
       const regexReplacements = [
+        [/Build Your Own Sub/gi, 'セルフサンドイッチ'],
         [/Wednesday/gi, '水曜日'],
         [/Car Assignment - Dropoff:/gi, '車の割り当て - 降ろし：'],
         [/Departure Time:/gi, '出発時間：'],
@@ -701,7 +702,7 @@
       { when: 'Friday Lunch (2:00pm)', menu: "Jordy\'s Famous Sandwiches", people: ['Jordan', 'Juan'] },
       { when: 'Friday Dinner (Catered 8:00pm)', menu: "Keith\'s Famous Catered Taco Night", people: ['Keith', 'Tyler'] },
       { when: 'Saturday Breakfast (9:00am)', menu: "Joe\'s Famous B&G Breakfast", people: ['Joe', 'Sam', 'Matt'] },
-      { when: 'Saturday Lunch (2:00pm)', menu: 'TBD - Light Lunch', people: ['Peter', 'TK'] },
+      { when: 'Saturday Lunch (2:00pm)', menu: 'Build Your Own Sub', people: ['Peter', 'TK'] },
       { when: 'Saturday Dinner (8:00pm)', menu: 'Marinated Chicken and Roasted Potatoes', people: ['Will', 'Gabe', 'Dan', 'Mason', 'Jake'] }
     ];
 
